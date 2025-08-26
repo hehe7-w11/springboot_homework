@@ -1,10 +1,14 @@
 package com.oocl.springboot_exercise.controller;
 
-public class Company {
-    private int name;
-    private Employee[] employees;
+import java.util.List;
 
-    public Company(int name, Employee[] employees) {
+public class Company {
+    private int id;
+    private String name;
+    private List<Employee> employees;
+
+    public Company(int id, String name, List<Employee> employees) {
+        this.id = id;
         this.name = name;
         this.employees = employees;
     }
@@ -12,19 +16,27 @@ public class Company {
     public Company() {
     }
 
-    public int getName() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Employee[] getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Employee[] employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }
