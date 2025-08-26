@@ -49,4 +49,20 @@ public class EmployeeController {
         return oldEmployee;
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") int id) {
+        db.remove(id);
+    }
+
+    @GetMapping("/page")
+    public PageResult<Employee> getEmployeesByPage(
+            @RequestParam int page,
+            @RequestParam int size) {
+        List<Employee> allEmployees = new ArrayList<>(db.values());
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, allEmployees.size());
+        List<Employee> pageEmployees = allEmployees.subList(startIndex, endIndex);
+        return new PageResult<>(page, size, allEmployees.size(), pageEmployees);
+    }
+
 }
