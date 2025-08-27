@@ -1,5 +1,6 @@
 package com.oocl.springboot_exercise.Service;
 
+import com.oocl.springboot_exercise.Common.Exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.Model.Employee;
 import com.oocl.springboot_exercise.Repository.EmployeeRepository;
 import com.oocl.springboot_exercise.Service.Impl.EmployeeServiceImpl;
@@ -35,5 +36,15 @@ class EmployeeServiceImplTest {
         assertEquals(employee.isActive(), saveEmployee.isActive());
         assertEquals(employee.getSalary(), saveEmployee.getSalary());
         assertNotNull(saveEmployee.getId());
+    }
+
+    @Test
+    public void should_throw_exception_when_add_employee_given_age_below_18() {
+        // Given
+        Employee employee = new Employee("oocl", 15, "male", 20045.5, true);
+        // When
+        // Then
+        InvalidEmployeeException invalidEmployeeException = assertThrows(InvalidEmployeeException.class, () -> employeeService.addEmployee(employee));
+        assertEquals("员工年龄应为18-65岁", invalidEmployeeException.getMessage());
     }
 }
