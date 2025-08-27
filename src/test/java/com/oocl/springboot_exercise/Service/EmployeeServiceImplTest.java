@@ -91,18 +91,23 @@ class EmployeeServiceImplTest {
 
     @Test
     public void should_update_employee_by_id_successfully(){
+        // Given
         int id = 1;
-        Employee mockEmployee = new Employee(id, "Henry", 25, "male", 20045.5, true);
-        Mockito.when(employeeRepository.save(mockEmployee)).thenReturn(mockEmployee);
-
+        Employee oldEmployee = new Employee(id, "Henry", 25, "male", 20045.5, true);
         Employee newEmployee = new Employee(id, "Henry", 25, "male", 23000, true);
+
+        Mockito.when(employeeRepository.getById(id)).thenReturn(oldEmployee);
         Mockito.when(employeeRepository.updateEmployee(id, newEmployee)).thenReturn(newEmployee);
 
+        // When
         Employee employee = employeeService.updateEmployeeById(id, newEmployee);
+
+        // Then
+        assertNotNull(employee);
         assertEquals(id, employee.getId());
-        assertEquals(newEmployee.getName(), employee.getName());
-        assertEquals(newEmployee.getAge(), employee.getAge());
         assertEquals(newEmployee.getSalary(), employee.getSalary());
+        Mockito.verify(employeeRepository).getById(id);
+        Mockito.verify(employeeRepository).updateEmployee(id, newEmployee);
     }
 
     @Test
