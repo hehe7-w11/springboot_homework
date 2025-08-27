@@ -1,5 +1,9 @@
-package com.oocl.springboot_exercise.controller;
+package com.oocl.springboot_exercise.Controller;
 
+import com.oocl.springboot_exercise.Model.Company;
+import com.oocl.springboot_exercise.Model.Employee;
+import com.oocl.springboot_exercise.Service.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +16,14 @@ import java.util.Map;
 @RequestMapping("/api/v1/companies")
 public class CompanyController {
 
+
+    private final CompanyService companyService;
+
     private final static Map<Integer, Company> db = new HashMap<>();
+
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
 
     @GetMapping
     public List<Company> getCompanyList(){

@@ -1,5 +1,11 @@
-package com.oocl.springboot_exercise.controller;
+package com.oocl.springboot_exercise.Controller;
 
+import com.oocl.springboot_exercise.Common.Result;
+import com.oocl.springboot_exercise.Model.Employee;
+import com.oocl.springboot_exercise.Common.PageResult;
+import com.oocl.springboot_exercise.Service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,53 +18,42 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/employees")
 public class EmployeeController {
 
-    private final static Map<Integer, Employee> db = new HashMap<>();
+    @Autowired
+    private EmployeeService employeeService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody Employee employee) {
-        employee.setId(db.size() + 1);
-        db.put(db.size() + 1, employee);
+        employeeService.addEmployee(employee);
     }
 
     @GetMapping("/{id}")
-    public Employee getById(@PathVariable("id") int id) {
-        return db.get(id);
+    public Result<Employee> getById(@PathVariable("id") int id) {
+        Employee employee = employeeService.getEmployeeById(id);
+        return employee != null ? Result.success(employee) : Result.fail("查询为空");
     }
 
     @GetMapping
     public List<Employee> getEmployeeByGender(@RequestParam(required = false) String gender) {
-        List<Employee> employees = new ArrayList<>(db.values());
-        if (gender != null) {
-            return employees.stream()
-                    .filter(employee -> gender.equals(employee.getGender()))
-                    .collect(Collectors.toList());
-        }
-        return employees;
+        return employeeService.getEmployeeByGender(gender);
     }
 
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employee){
-        Employee oldEmployee = db.get(id);
-        if(oldEmployee != null){
-            oldEmployee.setGender(employee.getGender());
-            oldEmployee.setAge(employee.getAge());
-            oldEmployee.setName(employee.getName());
-            oldEmployee.setSalary(employee.getSalary());
-            db.put(id, oldEmployee);
-        }
-        return oldEmployee;
+        return employeeService.updateEmployeeById(id, employee);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable("id") int id) {
-        db.remove(id);
+        employeeService.deleteById(id);
     }
 
     @GetMapping("/page")
     public PageResult<Employee> getEmployeesByPage(
             @RequestParam int page,
             @RequestParam int size) {
-        List<Employee> allEmployees = new ArrayList<>(db.values());
+        List<Employee> allEmployees = employeeService.getEmployeeList();
         int startIndex = (page - 1) * size;
         int endIndex = Math.min(startIndex + size, allEmployees.size());
         List<Employee> pageEmployees = allEmployees.subList(startIndex, endIndex);

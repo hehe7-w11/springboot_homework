@@ -1,4 +1,4 @@
-package com.oocl.springboot_exercise.controller;
+package com.oocl.springboot_exercise.Model;
 
 public class Employee {
     private int id;
@@ -6,13 +6,15 @@ public class Employee {
     private int age;
     private String gender;
     private double salary;
+    private boolean active = true;
 
-    public Employee(int id, String name, int age, String gender, double salary) {
+    public Employee(int id, String name, int age, String gender, double salary, boolean active) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+        this.active = active;
     }
 
     public Employee(){}
@@ -55,5 +57,13 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
