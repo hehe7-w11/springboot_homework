@@ -4,6 +4,7 @@ import com.oocl.springboot_exercise.Common.Exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.Model.Employee;
 import com.oocl.springboot_exercise.Repository.EmployeeRepository;
 import com.oocl.springboot_exercise.Service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,22 +13,19 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
 
     @Override
-    public void addEmployee(Employee employee) {
+    public Employee addEmployee(Employee employee) {
         if (employee.getAge() < 18 || employee.getAge() > 65) {
             throw new InvalidEmployeeException("员工年龄应为18-65岁");
         }
         if (employee.getAge() > 30 && employee.getSalary() < 20000) {
             throw new InvalidEmployeeException("员工年龄大于等于30且薪资低于20000，不符合薪资结构");
         }
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override

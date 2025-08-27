@@ -19,9 +19,10 @@ public class EmployeeRepository {
         return new ArrayList<>(db.values());
     }
 
-    public void save(Employee employee) {
+    public Employee save(Employee employee) {
         employee.setId(db.size() + 1);
         db.put(db.size() + 1, employee);
+        return db.get(db.size());
     }
 
     public Employee getById(int id) {

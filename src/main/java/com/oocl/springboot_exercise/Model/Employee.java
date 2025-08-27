@@ -1,12 +1,12 @@
 package com.oocl.springboot_exercise.Model;
 
 public class Employee {
-    private int id;
+    private Integer id;
     private String name;
-    private int age;
+    private Integer age;
     private String gender;
-    private double salary;
-    private boolean active = true;
+    private Double salary;
+    private Boolean active = true;
 
     public Employee(int id, String name, int age, String gender, double salary, boolean active) {
         this.id = id;
@@ -17,9 +17,17 @@ public class Employee {
         this.active = active;
     }
 
+    public Employee(String name, int age, String gender, double salary, boolean active) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+        this.active = active;
+    }
+
     public Employee(){}
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -35,7 +43,7 @@ public class Employee {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -51,7 +59,7 @@ public class Employee {
         this.gender = gender;
     }
 
-    public double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
@@ -59,7 +67,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 

@@ -22,9 +22,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    public Employee add(@RequestBody Employee employee) {
+        return employeeService.addEmployee(employee);
     }
 
     @GetMapping("/{id}")

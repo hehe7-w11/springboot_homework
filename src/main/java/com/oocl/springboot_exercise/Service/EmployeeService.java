@@ -1,14 +1,13 @@
 package com.oocl.springboot_exercise.Service;
 
 import com.oocl.springboot_exercise.Model.Employee;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 public interface EmployeeService {
 
-    void addEmployee(Employee employee);
+    Employee addEmployee(Employee employee);
 
     Employee getEmployeeById(Integer id);
 
