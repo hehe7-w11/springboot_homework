@@ -33,8 +33,8 @@ public class EmployeeController {
         return employee != null ? Result.success(employee) : Result.fail("查询为空");
     }
 
-    @GetMapping
-    public List<Employee> getEmployeeByGender(@RequestParam(required = false) String gender) {
+    @GetMapping(params = {"gender"})
+    public List<Employee> getEmployeeByGender(@RequestParam(name = "gender",required = false) String gender) {
         return employeeService.getEmployeeByGender(gender);
     }
 

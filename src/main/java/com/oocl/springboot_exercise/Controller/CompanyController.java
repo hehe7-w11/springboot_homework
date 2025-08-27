@@ -16,54 +16,40 @@ import java.util.Map;
 @RequestMapping("/api/v1/companies")
 public class CompanyController {
 
-
-    private final CompanyService companyService;
+    @Autowired
+    private CompanyService companyService;
 
     private final static Map<Integer, Company> db = new HashMap<>();
 
-    public CompanyController(CompanyService companyService) {
-        this.companyService = companyService;
-    }
-
     @GetMapping
-    public List<Company> getCompanyList(){
-        return new ArrayList<>(db.values());
+    public List<Company> getCompanyList() {
+        return companyService.getCompanies();
     }
 
     @GetMapping("/{id}")
-    public Company getCompanyById(@PathVariable Integer id){
-        return db.get(id);
+    public Company getCompanyById(@PathVariable Integer id) {
+        return companyService.getCompanyById(id);
     }
 
     @GetMapping("/{companyId}/employees")
-    public List<Employee> getCompanyEmployees(@PathVariable Integer companyId){
-        Company company = db.get(companyId);
-        if(company != null){
-            return company.getEmployees();
-        }
-        return new ArrayList<>();
+    public List<Employee> getCompanyEmployees(@PathVariable Integer companyId) {
+        return companyService.getCompanyEmployees(companyId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCompany(@RequestBody Company company){
-        company.setId(db.size() + 1);
-        db.put(db.size() + 1, company);
+    public void addCompany(@RequestBody Company company) {
+        companyService.createCompany(company);
     }
 
-    @PutMapping("/{id}")
-    public Company updateCompanyName(@PathVariable Integer id, @RequestBody Map<String, String> request) {
-        Company company = db.get(id);
-        if (company != null) {
-            company.setName(request.get("name"));
-            db.put(id, company);
-        }
-        return company;
+    @PutMapping(value = "/{id}", params = "name")
+    public Company updateCompanyName(@PathVariable Integer id, @RequestParam String name) {
+        return companyService.updateCompanyName(id, name);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompany(@PathVariable Integer id) {
-        db.remove(id);
+        companyService.deleteCompanyById(id);
     }
 }
