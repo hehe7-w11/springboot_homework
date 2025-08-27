@@ -11,7 +11,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+
 @ExtendWith(SpringExtension.class)
 class EmployeeServiceImplTest {
 
@@ -41,10 +45,120 @@ class EmployeeServiceImplTest {
     @Test
     public void should_throw_exception_when_add_employee_given_age_below_18() {
         // Given
-        Employee employee = new Employee("oocl", 15, "male", 20045.5, true);
+        Employee employee = new Employee(1, "Henry", 25, "male", 20045.5, true);
         // When
         // Then
         InvalidEmployeeException invalidEmployeeException = assertThrows(InvalidEmployeeException.class, () -> employeeService.addEmployee(employee));
         assertEquals("员工年龄应为18-65岁", invalidEmployeeException.getMessage());
+    }
+
+    @Test
+    public void should_throw_exception_when_add_employee_given_age_above_65() {
+        // Given
+        Employee employee = new Employee(1, "Henry", 25, "male", 20045.5, true);
+        // When
+        // Then
+        InvalidEmployeeException invalidEmployeeException = assertThrows(InvalidEmployeeException.class, () -> employeeService.addEmployee(employee));
+        assertEquals("员工年龄应为18-65岁", invalidEmployeeException.getMessage());
+    }
+
+    @Test
+    public void should_throw_exception_when_add_employee_given_age_above_30_and_salary_below_20000() {
+        // Given
+        Employee employee = new Employee("oocl", 35, "male", 19852, true);
+        // When
+        // Then
+        InvalidEmployeeException invalidEmployeeException = assertThrows(InvalidEmployeeException.class, () -> employeeService.addEmployee(employee));
+        assertEquals("员工年龄大于等于30且薪资低于20000，不符合薪资结构", invalidEmployeeException.getMessage());
+    }
+
+    @Test
+    public void should_get_employee_by_id_successfully() {
+        // Given
+        int id = 1;
+        Employee mockEmployee = new Employee(1, "oocl", 25, "male", 20045.5, true);
+        Mockito.when(employeeRepository.getById(id)).thenReturn(mockEmployee);
+
+        // When
+        Employee employee = employeeService.getEmployeeById(id);
+
+        // Then
+        assertEquals(id, employee.getId());
+        assertEquals(mockEmployee.getName(), employee.getName());
+        assertEquals(mockEmployee.getAge(), employee.getAge());
+        assertEquals(mockEmployee.getSalary(), employee.getSalary());
+    }
+
+    @Test
+    public void should_update_employee_by_id_successfully(){
+        int id = 1;
+        Employee mockEmployee = new Employee(id, "Henry", 25, "male", 20045.5, true);
+        Mockito.when(employeeRepository.save(mockEmployee)).thenReturn(mockEmployee);
+
+        Employee newEmployee = new Employee(id, "Henry", 25, "male", 23000, true);
+        Mockito.when(employeeRepository.updateEmployee(id, newEmployee)).thenReturn(newEmployee);
+
+        Employee employee = employeeService.updateEmployeeById(id, newEmployee);
+        assertEquals(id, employee.getId());
+        assertEquals(newEmployee.getName(), employee.getName());
+        assertEquals(newEmployee.getAge(), employee.getAge());
+        assertEquals(newEmployee.getSalary(), employee.getSalary());
+    }
+
+    @Test
+    public void should_delete_employee_successfully(){
+        // given
+        Employee employee = new Employee(1, "Henry", 25, "male", 20045.5, true);
+        Mockito.when(employeeRepository.getById(1)).thenReturn(employee);
+
+        // When
+        employeeService.deleteById(1);
+        // then
+        assertEquals(false, employee.isActive());
+        Mockito.verify(employeeRepository, times(1)).getById(1);
+        Mockito.verify(employeeRepository, times(1)).updateEmployee(1, employee);
+    }
+
+    @Test
+    public void should_get_employee_list_successfully(){
+        // given
+        List<Employee> employees = List.of(new Employee(1, "Henry", 25, "male", 20045.5, true),
+                new Employee(2, "Jack", 26, "male", 26000, true),
+                new Employee(3, "Lucy", 27, "female", 30000, true),
+                new Employee(4, "Jim", 28, "male", 50000, true));
+        Mockito.when(employeeRepository.getEmployeeList()).thenReturn(employees);
+
+        // when
+        List<Employee> searchEmployees = employeeService.getEmployeeList();
+        for (int i = 0; i < employees.size(); i++) {
+            Employee expected = employees.get(i);
+            Employee actual = searchEmployees.get(i);
+
+            assertEquals(expected.getId(), actual.getId(), "ID不匹配");
+            assertEquals(expected.getName(), actual.getName(), "姓名不匹配");
+            assertEquals(expected.getAge(), actual.getAge(), "年龄不匹配");
+            assertEquals(expected.getGender(), actual.getGender(), "性别不匹配");
+        }
+        Mockito.verify(employeeRepository, Mockito.times(1)).getEmployeeList();
+    }
+
+    @Test
+    public void should_get_employee_by_gender(){
+        List<Employee> employees = List.of(new Employee(1, "Henry", 25, "male", 20045.5, true),
+                new Employee(2, "Jack", 26, "male", 26000, true),
+                new Employee(3, "Lucy", 27, "female", 30000, true),
+                new Employee(4, "Jim", 28, "male", 50000, true));
+        Mockito.when(employeeRepository.getEmployeeList()).thenReturn(employees);
+
+        List<Employee> searchEmployees = employeeService.getEmployeeByGender("female");
+        List<Employee> expectedResult = List.of(new Employee(3, "Lucy", 27, "female", 30000, true));
+        for (int i = 0; i < searchEmployees.size(); i++) {
+            Employee expected = expectedResult.get(i);
+            Employee actual = searchEmployees.get(i);
+            assertEquals(expected.getId(), actual.getId(), "ID不匹配");
+            assertEquals(expected.getName(), actual.getName(), "姓名不匹配");
+            assertEquals(expected.getAge(), actual.getAge(), "年龄不匹配");
+            assertEquals(expected.getGender(), actual.getGender(), "性别不匹配");
+        }
     }
 }

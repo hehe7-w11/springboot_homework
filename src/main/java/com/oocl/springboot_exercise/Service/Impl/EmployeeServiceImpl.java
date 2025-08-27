@@ -36,6 +36,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee updateEmployeeById(Integer id, Employee employee) {
         Employee oldEmployee = employeeRepository.getById(id);
+        if (oldEmployee == null) {
+            return null;
+        }
         if (!oldEmployee.isActive()) {
             throw new InvalidEmployeeException("员工已离职无法更新");
         }
