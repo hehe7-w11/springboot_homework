@@ -1,9 +1,9 @@
-package com.oocl.springboot_exercise.Service.Impl;
+package com.oocl.springboot_exercise.service.Impl;
 
-import com.oocl.springboot_exercise.Model.Company;
-import com.oocl.springboot_exercise.Model.Employee;
-import com.oocl.springboot_exercise.Repository.CompanyRepository;
-import com.oocl.springboot_exercise.Service.CompanyService;
+import com.oocl.springboot_exercise.model.Company;
+import com.oocl.springboot_exercise.model.Employee;
+import com.oocl.springboot_exercise.repository.CompanyRepository;
+import com.oocl.springboot_exercise.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

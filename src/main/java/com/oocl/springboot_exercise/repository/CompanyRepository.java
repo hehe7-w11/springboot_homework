@@ -1,6 +1,6 @@
-package com.oocl.springboot_exercise.Repository;
+package com.oocl.springboot_exercise.repository;
 
-import com.oocl.springboot_exercise.Model.Company;
+import com.oocl.springboot_exercise.model.Company;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
-package com.oocl.springboot_exercise.Service.Impl;
+package com.oocl.springboot_exercise.service.Impl;
 
-import com.oocl.springboot_exercise.Common.Exception.InvalidEmployeeException;
-import com.oocl.springboot_exercise.Model.Employee;
-import com.oocl.springboot_exercise.Repository.EmployeeRepository;
-import com.oocl.springboot_exercise.Service.EmployeeService;
+import com.oocl.springboot_exercise.common.Exception.InvalidEmployeeException;
+import com.oocl.springboot_exercise.model.Employee;
+import com.oocl.springboot_exercise.repository.EmployeeRepository;
+import com.oocl.springboot_exercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

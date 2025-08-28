@@ -1,6 +1,6 @@
-package com.oocl.springboot_exercise.Controller;
+package com.oocl.springboot_exercise.controller;
 
-import com.oocl.springboot_exercise.Model.Todo;
+import com.oocl.springboot_exercise.model.Todo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

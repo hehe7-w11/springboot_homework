@@ -1,4 +1,4 @@
-package com.oocl.springboot_exercise.Common;
+package com.oocl.springboot_exercise.common;
 
 import java.util.List;
 

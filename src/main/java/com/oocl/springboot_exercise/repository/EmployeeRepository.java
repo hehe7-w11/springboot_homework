@@ -1,6 +1,6 @@
-package com.oocl.springboot_exercise.Repository;
+package com.oocl.springboot_exercise.repository;
 
-import com.oocl.springboot_exercise.Model.Employee;
+import com.oocl.springboot_exercise.model.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

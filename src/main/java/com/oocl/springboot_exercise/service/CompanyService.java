@@ -1,6 +1,6 @@
-package com.oocl.springboot_exercise.Service;
-import com.oocl.springboot_exercise.Model.Company;
-import com.oocl.springboot_exercise.Model.Employee;
+package com.oocl.springboot_exercise.service;
+import com.oocl.springboot_exercise.model.Company;
+import com.oocl.springboot_exercise.model.Employee;
 
 import java.util.List;
 

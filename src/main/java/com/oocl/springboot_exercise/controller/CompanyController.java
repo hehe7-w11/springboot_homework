@@ -1,13 +1,12 @@
-package com.oocl.springboot_exercise.Controller;
+package com.oocl.springboot_exercise.controller;
 
-import com.oocl.springboot_exercise.Model.Company;
-import com.oocl.springboot_exercise.Model.Employee;
-import com.oocl.springboot_exercise.Service.CompanyService;
+import com.oocl.springboot_exercise.model.Company;
+import com.oocl.springboot_exercise.model.Employee;
+import com.oocl.springboot_exercise.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

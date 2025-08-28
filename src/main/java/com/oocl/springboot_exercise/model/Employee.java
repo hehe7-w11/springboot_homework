@@ -1,4 +1,4 @@
-package com.oocl.springboot_exercise.Model;
+package com.oocl.springboot_exercise.model;
 
 public class Employee {
     private Integer id;
