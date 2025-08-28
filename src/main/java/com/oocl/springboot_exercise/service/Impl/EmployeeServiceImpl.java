@@ -1,6 +1,6 @@
 package com.oocl.springboot_exercise.service.Impl;
 
-import com.oocl.springboot_exercise.common.Exception.InvalidEmployeeException;
+import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.EmployeeRepository;
 import com.oocl.springboot_exercise.service.EmployeeService;

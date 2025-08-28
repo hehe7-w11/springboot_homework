@@ -23,12 +23,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Result<Employee> getById(@PathVariable("id") int id) {
-        Employee employee = employeeService.getEmployeeById(id);
-        return employee != null ? Result.success(employee) : Result.fail("查询为空");
+    public Employee getById(@PathVariable("id") int id) {
+        return employeeService.getEmployeeById(id);
     }
 
-    @GetMapping(params = {"gender"})
+    @GetMapping()
     public List<Employee> getEmployeeByGender(@RequestParam(name = "gender",required = false) String gender) {
         return employeeService.getEmployeeByGender(gender);
     }

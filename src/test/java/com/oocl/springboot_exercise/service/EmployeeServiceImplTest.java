@@ -1,6 +1,6 @@
 package com.oocl.springboot_exercise.service;
 
-import com.oocl.springboot_exercise.common.Exception.InvalidEmployeeException;
+import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.EmployeeRepository;
 import com.oocl.springboot_exercise.service.Impl.EmployeeServiceImpl;
@@ -29,7 +29,7 @@ class EmployeeServiceImplTest {
     public void should_add_employee_successfully() {
         // Given
         Employee employee = new Employee("oocl", 25, "male", 20045.5, true);
-        Employee mockEmployee = new Employee(1,employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.isActive());
+        Employee mockEmployee = new Employee(1, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.isActive());
         Mockito.when(employeeRepository.save(Mockito.any(Employee.class)))
                 .thenReturn(mockEmployee);
         // When
@@ -90,7 +90,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    public void should_update_employee_by_id_successfully(){
+    public void should_update_employee_by_id_successfully() {
         // Given
         int id = 1;
         Employee oldEmployee = new Employee(id, "Henry", 25, "male", 20045.5, true);
@@ -111,7 +111,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    public void should_delete_employee_successfully(){
+    public void should_delete_employee_successfully() {
         // given
         Employee employee = new Employee(1, "Henry", 25, "male", 20045.5, true);
         Mockito.when(employeeRepository.getById(1)).thenReturn(employee);
@@ -125,7 +125,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    public void should_get_employee_list_successfully(){
+    public void should_get_employee_list_successfully() {
         // given
         List<Employee> employees = List.of(new Employee(1, "Henry", 25, "male", 20045.5, true),
                 new Employee(2, "Jack", 26, "male", 26000, true),
@@ -148,7 +148,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    public void should_get_employee_by_gender(){
+    public void should_get_employee_by_gender() {
         List<Employee> employees = List.of(new Employee(1, "Henry", 25, "male", 20045.5, true),
                 new Employee(2, "Jack", 26, "male", 26000, true),
                 new Employee(3, "Lucy", 27, "female", 30000, true),
