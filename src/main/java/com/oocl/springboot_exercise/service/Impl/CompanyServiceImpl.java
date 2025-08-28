@@ -31,7 +31,7 @@ public class CompanyServiceImpl implements CompanyService {
         // Todo: Employee应该添加companyId字段，并在数据库中做连接查询的操作
         Company company = companyRepository.getCompanyById(companyId);
         if (company != null) {
-            return company.getEmployees();
+            return null;
         }
         return new ArrayList<>();
     }

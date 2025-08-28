@@ -1,35 +1,24 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Employee;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
-@Repository
-public class EmployeeRepository {
+public interface EmployeeRepository {
+    Employee save(Employee employee);
 
-    private final Map<Integer, Employee> db = new HashMap<>();
+    Employee getById(Integer id);
 
-    public List<Employee> getEmployeeList() {
-        return new ArrayList<>(db.values());
-    }
+    List<Employee> getByGender(String gender);
 
-    public Employee save(Employee employee) {
-        employee.setId(db.size() + 1);
-        db.put(db.size() + 1, employee);
-        return db.get(db.size());
-    }
+    List<Employee> getAll();
 
-    public Employee getById(int id) {
-        return db.get(id);
-    }
+    Employee update(Employee newEmployee);
 
-    public Employee updateEmployee(Integer id, Employee employee) {
-        db.put(id, employee);
-        return employee;
-    }
+    void deleteById(Integer id);
 
-    public void deleteEmployeeById(int id) {
-        db.remove(id);
-    }
+    List<Employee> getByPageSize(Integer pageNumber, Integer pageSize);
+
 }

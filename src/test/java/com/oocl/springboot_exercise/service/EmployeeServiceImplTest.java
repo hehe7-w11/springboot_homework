@@ -2,7 +2,8 @@ package com.oocl.springboot_exercise.service;
 
 import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.model.Employee;
-import com.oocl.springboot_exercise.repository.EmployeeRepository;
+import com.oocl.springboot_exercise.repository.EmployeeDBRepository;
+import com.oocl.springboot_exercise.repository.EmployeeMemoryRepository;
 import com.oocl.springboot_exercise.service.Impl.EmployeeServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.times;
 class EmployeeServiceImplTest {
 
     @Mock
-    private EmployeeRepository employeeRepository;
+    private EmployeeDBRepository employeeMemoryRepository;
 
     @InjectMocks
     private EmployeeServiceImpl employeeService;
@@ -30,7 +31,7 @@ class EmployeeServiceImplTest {
         // Given
         Employee employee = new Employee("oocl", 25, "male", 20045.5, true);
         Employee mockEmployee = new Employee(1, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.isActive());
-        Mockito.when(employeeRepository.save(Mockito.any(Employee.class)))
+        Mockito.when(employeeMemoryRepository.save(Mockito.any(Employee.class)))
                 .thenReturn(mockEmployee);
         // When
         Employee saveEmployee = employeeService.addEmployee(employee);
@@ -77,7 +78,7 @@ class EmployeeServiceImplTest {
         // Given
         int id = 1;
         Employee mockEmployee = new Employee(1, "oocl", 25, "male", 20045.5, true);
-        Mockito.when(employeeRepository.getById(id)).thenReturn(mockEmployee);
+        Mockito.when(employeeMemoryRepository.getById(id)).thenReturn(mockEmployee);
 
         // When
         Employee employee = employeeService.getEmployeeById(id);
@@ -96,8 +97,8 @@ class EmployeeServiceImplTest {
         Employee oldEmployee = new Employee(id, "Henry", 25, "male", 20045.5, true);
         Employee newEmployee = new Employee(id, "Henry", 25, "male", 23000, true);
 
-        Mockito.when(employeeRepository.getById(id)).thenReturn(oldEmployee);
-        Mockito.when(employeeRepository.updateEmployee(id, newEmployee)).thenReturn(newEmployee);
+        Mockito.when(employeeMemoryRepository.getById(id)).thenReturn(oldEmployee);
+        Mockito.when(employeeMemoryRepository.update(newEmployee)).thenReturn(newEmployee);
 
         // When
         Employee employee = employeeService.updateEmployeeById(id, newEmployee);
@@ -106,22 +107,22 @@ class EmployeeServiceImplTest {
         assertNotNull(employee);
         assertEquals(id, employee.getId());
         assertEquals(newEmployee.getSalary(), employee.getSalary());
-        Mockito.verify(employeeRepository).getById(id);
-        Mockito.verify(employeeRepository).updateEmployee(id, newEmployee);
+        Mockito.verify(employeeMemoryRepository).getById(id);
+        Mockito.verify(employeeMemoryRepository).update(newEmployee);
     }
 
     @Test
     public void should_delete_employee_successfully() {
         // given
         Employee employee = new Employee(1, "Henry", 25, "male", 20045.5, true);
-        Mockito.when(employeeRepository.getById(1)).thenReturn(employee);
+        Mockito.when(employeeMemoryRepository.getById(1)).thenReturn(employee);
 
         // When
         employeeService.deleteById(1);
         // then
         assertEquals(false, employee.isActive());
-        Mockito.verify(employeeRepository, times(1)).getById(1);
-        Mockito.verify(employeeRepository, times(1)).updateEmployee(1, employee);
+        Mockito.verify(employeeMemoryRepository, times(1)).getById(1);
+        Mockito.verify(employeeMemoryRepository, times(1)).update(employee);
     }
 
     @Test
@@ -131,7 +132,7 @@ class EmployeeServiceImplTest {
                 new Employee(2, "Jack", 26, "male", 26000, true),
                 new Employee(3, "Lucy", 27, "female", 30000, true),
                 new Employee(4, "Jim", 28, "male", 50000, true));
-        Mockito.when(employeeRepository.getEmployeeList()).thenReturn(employees);
+        Mockito.when(employeeMemoryRepository.getAll()).thenReturn(employees);
 
         // when
         List<Employee> searchEmployees = employeeService.getEmployeeList();
@@ -144,7 +145,7 @@ class EmployeeServiceImplTest {
             assertEquals(expected.getAge(), actual.getAge(), "年龄不匹配");
             assertEquals(expected.getGender(), actual.getGender(), "性别不匹配");
         }
-        Mockito.verify(employeeRepository, Mockito.times(1)).getEmployeeList();
+        Mockito.verify(employeeMemoryRepository, Mockito.times(1)).getAll();
     }
 
     @Test
@@ -153,7 +154,7 @@ class EmployeeServiceImplTest {
                 new Employee(2, "Jack", 26, "male", 26000, true),
                 new Employee(3, "Lucy", 27, "female", 30000, true),
                 new Employee(4, "Jim", 28, "male", 50000, true));
-        Mockito.when(employeeRepository.getEmployeeList()).thenReturn(employees);
+        Mockito.when(employeeMemoryRepository.getAll()).thenReturn(employees);
 
         List<Employee> searchEmployees = employeeService.getEmployeeByGender("female");
         List<Employee> expectedResult = List.of(new Employee(3, "Lucy", 27, "female", 30000, true));

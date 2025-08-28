@@ -1,12 +1,30 @@
 package com.oocl.springboot_exercise.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "employee")
 public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private Integer age;
     private String gender;
     private Double salary;
     private Boolean active = true;
+    private Integer companyId;
+
+    public Employee(int id, String name, int age, String gender, double salary, boolean active, int companyId) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+        this.active = active;
+        this.companyId = companyId;
+    }
 
     public Employee(int id, String name, int age, String gender, double salary, boolean active) {
         this.id = id;
@@ -73,5 +91,13 @@ public class Employee {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }
