@@ -1,6 +1,7 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Company;
+import com.oocl.springboot_exercise.model.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ public class CompanyMemoryRepository implements CompanyRepository{
 
     public List<Company> getCompanies() {
         return new ArrayList<>(db.values());
+    }
+
+    @Override
+    public List<Employee> getEmployeeByCompany(Company company) {
+        return null;
     }
 
     public Company getCompanyById(Integer id) {

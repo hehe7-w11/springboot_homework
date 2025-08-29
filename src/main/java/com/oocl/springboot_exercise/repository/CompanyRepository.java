@@ -1,6 +1,7 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Company;
+import com.oocl.springboot_exercise.model.Employee;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface CompanyRepository {
     public Company getCompanyById(Integer id);
 
     public List<Company> getCompanies();
+
+    List<Employee> getEmployeeByCompany(Company company);
 
     }

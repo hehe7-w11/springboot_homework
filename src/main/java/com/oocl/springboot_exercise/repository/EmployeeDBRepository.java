@@ -2,6 +2,7 @@ package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,6 +46,6 @@ public class EmployeeDBRepository implements EmployeeRepository{
 
     @Override
     public List<Employee> getByPageSize(Integer pageNumber, Integer pageSize) {
-        return null;
+        return repository.findAll(PageRequest.of(pageNumber - 1, pageSize)).getContent();
     }
 }

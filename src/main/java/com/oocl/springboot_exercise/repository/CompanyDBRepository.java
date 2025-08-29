@@ -1,10 +1,12 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Company;
+import com.oocl.springboot_exercise.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public class CompanyDBRepository implements CompanyRepository {
 
     @Autowired
@@ -33,5 +35,9 @@ public class CompanyDBRepository implements CompanyRepository {
     @Override
     public List<Company> getCompanies() {
         return jpaCompanyRepository.findAll();
+    }
+
+    public List<Employee> getEmployeeByCompany(Company company) {
+        return null;
     }
 }

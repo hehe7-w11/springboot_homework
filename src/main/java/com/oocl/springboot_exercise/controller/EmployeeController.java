@@ -28,12 +28,12 @@ public class EmployeeController {
     }
 
     @GetMapping()
-    public List<Employee> getEmployeeByGender(@RequestParam(name = "gender",required = false) String gender) {
+    public List<Employee> getEmployeeByGender(@RequestParam(name = "gender", required = false) String gender) {
         return employeeService.getEmployeeByGender(gender);
     }
 
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employee){
+    public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         return employeeService.updateEmployeeById(id, employee);
     }
 
@@ -44,14 +44,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/page")
-    public PageResult<Employee> getEmployeesByPage(
-            @RequestParam int page,
-            @RequestParam int size) {
-        List<Employee> allEmployees = employeeService.getEmployeeList();
-        int startIndex = (page - 1) * size;
-        int endIndex = Math.min(startIndex + size, allEmployees.size());
-        List<Employee> pageEmployees = allEmployees.subList(startIndex, endIndex);
-        return new PageResult<>(page, size, allEmployees.size(), pageEmployees);
+    public List<Employee> getEmployeesByPage(@RequestParam int page, @RequestParam int size) {
+        return employeeService.getEmployeesByPage(page, size);
     }
 
 }

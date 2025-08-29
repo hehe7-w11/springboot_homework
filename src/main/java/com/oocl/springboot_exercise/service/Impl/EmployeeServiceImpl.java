@@ -3,7 +3,6 @@ package com.oocl.springboot_exercise.service.Impl;
 import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.EmployeeDBRepository;
-import com.oocl.springboot_exercise.repository.EmployeeMemoryRepository;
 import com.oocl.springboot_exercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
-    private EmployeeDBRepository employeeMemoryRepository;
+    private EmployeeDBRepository employeeRepository;
 
 
     @Override
@@ -25,43 +24,48 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee.getAge() > 30 && employee.getSalary() < 20000) {
             throw new InvalidEmployeeException("员工年龄大于等于30且薪资低于20000，不符合薪资结构");
         }
-        return employeeMemoryRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
     public Employee getEmployeeById(Integer id) {
-        return employeeMemoryRepository.getById(id);
+        return employeeRepository.getById(id);
     }
 
     @Override
     public Employee updateEmployeeById(Integer id, Employee employee) {
-        Employee oldEmployee = employeeMemoryRepository.getById(id);
+        Employee oldEmployee = employeeRepository.getById(id);
         if (oldEmployee == null) {
             return null;
         }
         if (!oldEmployee.isActive()) {
             throw new InvalidEmployeeException("员工已离职无法更新");
         }
-        return employeeMemoryRepository.update(employee);
+        return employeeRepository.update(employee);
     }
 
     @Override
     public void deleteById(int id) {
-        Employee employee = employeeMemoryRepository.getById(id);
+        Employee employee = employeeRepository.getById(id);
         employee.setActive(false);
-        employeeMemoryRepository.update(employee);
+        employeeRepository.update(employee);
     }
 
     @Override
     public List<Employee> getEmployeeList() {
-        return employeeMemoryRepository.getAll();
+        return employeeRepository.getAll();
     }
 
     @Override
     public List<Employee> getEmployeeByGender(String gender) {
         if (gender == null) {
-            return employeeMemoryRepository.getAll();
+            return employeeRepository.getAll();
         }
-        return employeeMemoryRepository.getByGender(gender);
+        return employeeRepository.getByGender(gender);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByPage(int page, int size) {
+        return employeeRepository.getByPageSize(page, size);
     }
 }
