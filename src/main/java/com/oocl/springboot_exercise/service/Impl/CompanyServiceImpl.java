@@ -1,13 +1,11 @@
 package com.oocl.springboot_exercise.service.Impl;
 
 import com.oocl.springboot_exercise.model.Company;
-import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.CompanyDBRepository;
 import com.oocl.springboot_exercise.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

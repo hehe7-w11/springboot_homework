@@ -1,13 +1,10 @@
 package com.oocl.springboot_exercise.service.Impl;
 
 import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
-import com.oocl.springboot_exercise.controller.dto.EmployeeResponse;
-import com.oocl.springboot_exercise.controller.mapper.EmployeeMapper;
 import com.oocl.springboot_exercise.model.Company;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.CompanyDBRepository;
 import com.oocl.springboot_exercise.repository.EmployeeDBRepository;
-import com.oocl.springboot_exercise.service.CompanyService;
 import com.oocl.springboot_exercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

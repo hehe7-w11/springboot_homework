@@ -1,11 +1,9 @@
 package com.oocl.springboot_exercise.controller;
 
-import com.oocl.springboot_exercise.common.Result;
 import com.oocl.springboot_exercise.controller.dto.EmployeeRequest;
 import com.oocl.springboot_exercise.controller.dto.EmployeeResponse;
 import com.oocl.springboot_exercise.controller.mapper.EmployeeMapper;
 import com.oocl.springboot_exercise.model.Employee;
-import com.oocl.springboot_exercise.common.PageResult;
 import com.oocl.springboot_exercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

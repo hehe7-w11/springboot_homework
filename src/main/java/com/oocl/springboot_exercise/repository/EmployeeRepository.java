@@ -1,8 +1,6 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Employee;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

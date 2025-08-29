@@ -1,7 +1,6 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Company;
-import com.oocl.springboot_exercise.model.Employee;
 
 import java.util.List;
 
