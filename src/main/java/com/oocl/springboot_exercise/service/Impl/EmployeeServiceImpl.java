@@ -24,9 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(Employee employee) {
-        if (employee.getAge() < 18 || employee.getAge() > 65) {
-            throw new InvalidEmployeeException("员工年龄应为18-65岁");
-        }
         if (employee.getAge() > 30 && employee.getSalary() < 20000) {
             throw new InvalidEmployeeException("员工年龄大于等于30且薪资低于20000，不符合薪资结构");
         }

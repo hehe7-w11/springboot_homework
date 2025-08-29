@@ -5,6 +5,7 @@ import com.oocl.springboot_exercise.controller.dto.EmployeeResponse;
 import com.oocl.springboot_exercise.controller.mapper.EmployeeMapper;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ public class EmployeeController {
     private EmployeeMapper employeeMapper;
 
     @PostMapping
-    public EmployeeResponse add(@RequestBody EmployeeRequest employeeRequest) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public EmployeeResponse add(@Valid @RequestBody EmployeeRequest employeeRequest) {
         return employeeMapper.toResponse(employeeService.addEmployee(employeeMapper.toEntity(employeeRequest)));
     }
 

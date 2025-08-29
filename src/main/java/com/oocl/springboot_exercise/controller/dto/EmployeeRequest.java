@@ -1,7 +1,14 @@
 package com.oocl.springboot_exercise.controller.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class EmployeeRequest {
     private String name;
+    @NotNull(message = "Age cannot be null")
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 65, message = "Age must be no more than 65")
     private Integer age;
     private String gender;
     private Double salary;
