@@ -17,6 +17,10 @@ public class Company {
     public Company() {
     }
 
+    public Company(Integer companyId) {
+        this.id = companyId;
+    }
+
     public Integer getId() {
         return id;
     }

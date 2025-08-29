@@ -1,6 +1,7 @@
 package com.oocl.springboot_exercise.controller;
 
 import com.oocl.springboot_exercise.common.Result;
+import com.oocl.springboot_exercise.controller.dto.EmployeeRequest;
 import com.oocl.springboot_exercise.controller.dto.EmployeeResponse;
 import com.oocl.springboot_exercise.controller.mapper.EmployeeMapper;
 import com.oocl.springboot_exercise.model.Employee;
@@ -23,8 +24,8 @@ public class EmployeeController {
     private EmployeeMapper employeeMapper;
 
     @PostMapping
-    public Employee add(@RequestBody Employee employee) {
-        return employeeService.addEmployee(employee);
+    public EmployeeResponse add(@RequestBody EmployeeRequest employeeRequest) {
+        return employeeMapper.toResponse(employeeService.addEmployee(employeeMapper.toEntity(employeeRequest)));
     }
 
     @GetMapping("/{id}")

@@ -44,8 +44,6 @@ public class EmployeeTest {
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value(givenEmployees.get(0).getName()));
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].age").value(givenEmployees.get(0).getAge()));
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].gender").value(givenEmployees.get(0).getGender()));
-        perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].salary").value(givenEmployees.get(0).getSalary()));
-
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[1].id").value(givenEmployees.get(1).getId()));
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[2].id").value(givenEmployees.get(2).getId()));
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[3].id").value(givenEmployees.get(3).getId()));
@@ -60,15 +58,13 @@ public class EmployeeTest {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("测试数据中未找到ID=" + id + "的员工"));
 
-
         client.perform(MockMvcRequestBuilders.get("/api/v1/employees/{id}", id))
                 // Then：
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedEmployee.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedEmployee.getName()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(expectedEmployee.getAge()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(expectedEmployee.getGender()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(expectedEmployee.getSalary()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(expectedEmployee.getGender()));
     }
 
     @Test
@@ -86,8 +82,7 @@ public class EmployeeTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedEmployee.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedEmployee.getName()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(expectedEmployee.getAge()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(expectedEmployee.getGender()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(expectedEmployee.getSalary()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(expectedEmployee.getGender()));
     }
 
     @Test
@@ -104,7 +99,6 @@ public class EmployeeTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(expectedEmployees.get(0).getName()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(expectedEmployees.get(0).getAge()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(expectedEmployees.get(0).getGender()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(expectedEmployees.get(0).getSalary()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(expectedEmployees.get(1).getId()));
     }
 
