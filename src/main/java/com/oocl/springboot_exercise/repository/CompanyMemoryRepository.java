@@ -18,11 +18,6 @@ public class CompanyMemoryRepository implements CompanyRepository{
         return new ArrayList<>(db.values());
     }
 
-    @Override
-    public List<Employee> getEmployeeByCompany(Company company) {
-        return null;
-    }
-
     public Company getCompanyById(Integer id) {
         return db.get(id);
     }

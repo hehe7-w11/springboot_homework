@@ -10,8 +10,6 @@ public interface CompanyService {
 
     Company getCompanyById(Integer id);
 
-    List<Employee> getCompanyEmployees(Integer companyId);
-
     void createCompany(Company company);
 
     Company updateCompanyName(Integer id, String name);

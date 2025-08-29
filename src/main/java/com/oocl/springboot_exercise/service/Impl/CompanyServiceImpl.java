@@ -27,15 +27,6 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Employee> getCompanyEmployees(Integer companyId) {
-        Company company = companyRepository.getCompanyById(companyId);
-        if (company != null) {
-            return null;
-        }
-        return companyRepository.getEmployeeByCompany(company);
-    }
-
-    @Override
     public void createCompany(Company company) {
         companyRepository.createCompany(company);
     }

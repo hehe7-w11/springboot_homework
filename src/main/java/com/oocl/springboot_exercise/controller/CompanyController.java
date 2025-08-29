@@ -3,6 +3,7 @@ package com.oocl.springboot_exercise.controller;
 import com.oocl.springboot_exercise.model.Company;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.service.CompanyService;
+import com.oocl.springboot_exercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     private final static Map<Integer, Company> db = new HashMap<>();
 
     @GetMapping
@@ -32,7 +36,7 @@ public class CompanyController {
 
     @GetMapping("/{companyId}/employees")
     public List<Employee> getCompanyEmployees(@PathVariable Integer companyId) {
-        return companyService.getCompanyEmployees(companyId);
+        return employeeService.getCompanyEmployees(companyId);
     }
 
     @PostMapping

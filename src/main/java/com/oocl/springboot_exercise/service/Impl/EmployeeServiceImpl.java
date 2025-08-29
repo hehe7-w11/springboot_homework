@@ -1,8 +1,11 @@
 package com.oocl.springboot_exercise.service.Impl;
 
 import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
+import com.oocl.springboot_exercise.model.Company;
 import com.oocl.springboot_exercise.model.Employee;
+import com.oocl.springboot_exercise.repository.CompanyDBRepository;
 import com.oocl.springboot_exercise.repository.EmployeeDBRepository;
+import com.oocl.springboot_exercise.service.CompanyService;
 import com.oocl.springboot_exercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeDBRepository employeeRepository;
+
+    @Autowired
+    private CompanyDBRepository companyRepository;
 
 
     @Override
@@ -68,4 +74,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployeesByPage(int page, int size) {
         return employeeRepository.getByPageSize(page, size);
     }
+
+    @Override
+    public List<Employee> getCompanyEmployees(Integer id) {
+        Company company = companyRepository.getCompanyById(id);
+        if (company == null){
+            return null;
+        }
+        return employeeRepository.getEmployeesByCompany(company);
+    }
+
 }

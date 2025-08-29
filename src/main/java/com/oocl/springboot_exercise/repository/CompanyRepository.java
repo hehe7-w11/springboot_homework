@@ -16,7 +16,4 @@ public interface CompanyRepository {
     public Company getCompanyById(Integer id);
 
     public List<Company> getCompanies();
-
-    List<Employee> getEmployeeByCompany(Company company);
-
-    }
+}

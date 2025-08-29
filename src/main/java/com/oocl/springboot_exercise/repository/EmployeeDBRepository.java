@@ -1,5 +1,6 @@
 package com.oocl.springboot_exercise.repository;
 
+import com.oocl.springboot_exercise.model.Company;
 import com.oocl.springboot_exercise.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -47,5 +48,9 @@ public class EmployeeDBRepository implements EmployeeRepository{
     @Override
     public List<Employee> getByPageSize(Integer pageNumber, Integer pageSize) {
         return repository.findAll(PageRequest.of(pageNumber - 1, pageSize)).getContent();
+    }
+
+    public List<Employee> getEmployeesByCompany(Company company){
+        return repository.findEmployeesByCompany(company);
     }
 }

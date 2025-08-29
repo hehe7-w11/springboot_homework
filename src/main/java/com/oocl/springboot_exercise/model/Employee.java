@@ -14,28 +14,18 @@ public class Employee {
     private String gender;
     private Double salary;
     private Boolean active = true;
-    private Integer company_id;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "company_id")
-//    private Company company;
-//
-//    public Company getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(Company company) {
-//        this.company = company;
-//    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
-    public Employee(int id, String name, int age, String gender, double salary, boolean active, int company_id) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.salary = salary;
-        this.active = active;
-        this.company_id = company_id;
+    public Company getCompany() {
+        return company;
     }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
 
     public Employee(int id, String name, int age, String gender, double salary, boolean active) {
         this.id = id;
@@ -104,11 +94,4 @@ public class Employee {
         this.active = active;
     }
 
-    public Integer getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(Integer company_id) {
-        this.company_id = company_id;
-    }
 }
