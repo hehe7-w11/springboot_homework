@@ -1,6 +1,9 @@
 package com.oocl.springboot_exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name = "employee")
@@ -16,6 +19,7 @@ public class Employee {
     private Boolean active = true;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
+    @NotFound(action= NotFoundAction.IGNORE)
     private Company company;
 
     public Company getCompany() {

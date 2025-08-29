@@ -1,6 +1,8 @@
 package com.oocl.springboot_exercise.controller;
 
 import com.oocl.springboot_exercise.common.Result;
+import com.oocl.springboot_exercise.controller.dto.EmployeeResponse;
+import com.oocl.springboot_exercise.controller.mapper.EmployeeMapper;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.common.PageResult;
 import com.oocl.springboot_exercise.service.EmployeeService;
@@ -17,24 +19,27 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
     @PostMapping
     public Employee add(@RequestBody Employee employee) {
         return employeeService.addEmployee(employee);
     }
 
     @GetMapping("/{id}")
-    public Employee getById(@PathVariable("id") int id) {
-        return employeeService.getEmployeeById(id);
+    public EmployeeResponse getById(@PathVariable("id") int id) {
+        return employeeMapper.toResponse(employeeService.getEmployeeById(id));
     }
 
     @GetMapping()
-    public List<Employee> getEmployeeByGender(@RequestParam(name = "gender", required = false) String gender) {
-        return employeeService.getEmployeeByGender(gender);
+    public List<EmployeeResponse> getEmployeeByGender(@RequestParam(name = "gender", required = false) String gender) {
+        return employeeMapper.toResponse(employeeService.getEmployeeByGender(gender));
     }
 
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
-        return employeeService.updateEmployeeById(id, employee);
+    public EmployeeResponse updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
+        return employeeMapper.toResponse(employeeService.updateEmployeeById(id, employee));
     }
 
     @DeleteMapping("/{id}")
@@ -44,8 +49,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/page")
-    public List<Employee> getEmployeesByPage(@RequestParam int page, @RequestParam int size) {
-        return employeeService.getEmployeesByPage(page, size);
+    public List<EmployeeResponse> getEmployeesByPage(@RequestParam int page, @RequestParam int size) {
+        return employeeMapper.toResponse(employeeService.getEmployeesByPage(page, size));
     }
 
 }

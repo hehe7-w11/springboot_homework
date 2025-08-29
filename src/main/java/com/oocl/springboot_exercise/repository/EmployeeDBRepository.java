@@ -1,5 +1,7 @@
 package com.oocl.springboot_exercise.repository;
 
+import com.oocl.springboot_exercise.controller.dto.EmployeeResponse;
+import com.oocl.springboot_exercise.controller.mapper.EmployeeMapper;
 import com.oocl.springboot_exercise.model.Company;
 import com.oocl.springboot_exercise.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class EmployeeDBRepository implements EmployeeRepository{
+public class EmployeeDBRepository implements EmployeeRepository {
 
     @Autowired
     private JpaEmployeeRepository repository;
@@ -50,7 +52,7 @@ public class EmployeeDBRepository implements EmployeeRepository{
         return repository.findAll(PageRequest.of(pageNumber - 1, pageSize)).getContent();
     }
 
-    public List<Employee> getEmployeesByCompany(Company company){
+    public List<Employee> getEmployeesByCompany(Company company) {
         return repository.findEmployeesByCompany(company);
     }
 }
