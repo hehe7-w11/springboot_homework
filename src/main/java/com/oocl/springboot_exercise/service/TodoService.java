@@ -9,4 +9,12 @@ public interface TodoService {
     Todo saveTodo(Todo todo);
 
     List<Todo> getAllTodos();
+
+    Todo updateTodo(Todo todo);
+
+    Todo getById(Integer id);
+
+    void deleteById(Integer id);
+
+    List<Todo> getTodosByPage(int page, int size);
 }

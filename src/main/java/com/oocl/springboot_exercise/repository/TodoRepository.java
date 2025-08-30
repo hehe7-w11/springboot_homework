@@ -10,4 +10,10 @@ public interface TodoRepository {
     Todo save(Todo todo);
 
     List<Todo> getAll();
+
+    Todo getById(Integer id);
+
+    void deleteById(Integer id);
+
+    List<Todo> getByPage(int page, int size);
 }

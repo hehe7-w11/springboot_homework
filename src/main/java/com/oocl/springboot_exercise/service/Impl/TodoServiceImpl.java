@@ -26,4 +26,32 @@ public class TodoServiceImpl implements TodoService {
     public List<Todo> getAllTodos() {
         return todoRepository.getAll();
     }
+
+    @Override
+    public Todo updateTodo(Todo todo) {
+        if (todoRepository.getById(todo.getId()) != null) {
+            return todoRepository.save(todo);
+        }
+        return null;
+    }
+
+    @Override
+    public Todo getById(Integer id) {
+        return todoRepository.getById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        Todo todo = todoRepository.getById(id);
+        if (todo != null) {
+            todoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Todo not found");
+        }
+    }
+
+    @Override
+    public List<Todo> getTodosByPage(int page, int size) {
+        return todoRepository.getByPage(page, size);
+    }
 }

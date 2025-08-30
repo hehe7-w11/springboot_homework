@@ -8,13 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/todo")
+@RequestMapping("/api/v1/todos")
 public class TodoController {
 
     @Autowired
@@ -25,12 +22,33 @@ public class TodoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo saveTodo(@RequestBody TodoRequest todo){
+    public Todo saveTodo(@RequestBody TodoRequest todo) {
         return todoService.saveTodo(todoMapper.toEntity(todo));
     }
 
     @GetMapping
-    public List<Todo> getTodos(){
+    public List<Todo> getTodos() {
         return todoService.getAllTodos();
+    }
+
+    @GetMapping("/{id}")
+    public Todo getTodoById(@PathVariable Integer id) {
+        return todoService.getById(id);
+    }
+
+    @PutMapping
+    public Todo updateTodo(Todo todo) {
+        return todoService.updateTodo(todo);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTodo(@PathVariable Integer id) {
+        todoService.deleteById(id);
+    }
+
+    @GetMapping("/page")
+    public List<Todo> getTodosByPage(@RequestParam int page, @RequestParam int size) {
+        return todoService.getTodosByPage(page, size);
     }
 }
