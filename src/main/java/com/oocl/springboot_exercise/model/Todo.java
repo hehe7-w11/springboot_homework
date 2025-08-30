@@ -1,8 +1,13 @@
 package com.oocl.springboot_exercise.model;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "todo")
 public class Todo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String status;
