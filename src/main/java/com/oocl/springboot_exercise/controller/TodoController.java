@@ -37,7 +37,7 @@ public class TodoController {
     }
 
     @PutMapping
-    public Todo updateTodo(Todo todo) {
+    public Todo updateTodo(@RequestBody Todo todo) {
         return todoService.updateTodo(todo);
     }
 
