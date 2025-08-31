@@ -3,8 +3,6 @@ package com.oocl.springboot_exercise.integration;
 import com.oocl.springboot_exercise.common.SimpleJsonConverter;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.EmployeeDBRepository;
-import com.oocl.springboot_exercise.repository.EmployeeMemoryRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -74,7 +72,7 @@ public class EmployeeTest {
         Employee expectedEmployee = new Employee(2, "John", 26, "male", 25000, true);
 
 
-        client.perform(MockMvcRequestBuilders.put("/api/v1/employees/{id}", id)
+        client.perform(MockMvcRequestBuilders.put("/api/v1/employees")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(SimpleJsonConverter.toJson(expectedEmployee)))
                 // Then：

@@ -8,12 +8,12 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String title;
     private String status;
 
 
-    public Todo(int id, String title, String status) {
+    public Todo(Integer id, String title, String status) {
         this.id = id;
         this.title = title;
         this.status = status;
@@ -22,11 +22,11 @@ public class Todo {
     public Todo() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
