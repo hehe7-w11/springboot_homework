@@ -17,8 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TodoTest {
@@ -39,7 +37,7 @@ public class TodoTest {
         perform.andExpect(MockMvcResultMatchers.status().isOk());
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].id").value(givenTodos.get(0).getId()));
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].title").value(givenTodos.get(0).getTitle()));
-        perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].status").value(givenTodos.get(0).getStatus()));
+        perform.andExpect(MockMvcResultMatchers.jsonPath("$.[0].completed").value(givenTodos.get(0).getCompleted()));
         perform.andExpect(MockMvcResultMatchers.jsonPath("$.[1].id").value(givenTodos.get(1).getId()));
     }
 
@@ -56,7 +54,7 @@ public class TodoTest {
                 // Then：
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedTodo.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(expectedTodo.getStatus()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.completed").value(expectedTodo.getCompleted()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(expectedTodo.getTitle()));
     }
 
@@ -64,7 +62,7 @@ public class TodoTest {
     public void should_return_correct_todo_when_update_todo_by_id() throws Exception {
         // Given
         Integer id = 2;
-        Todo expectedTodo = new Todo(2, "学习Spring Boot", "completed");
+        Todo expectedTodo = new Todo(2, "学习Spring Boot", false);
 
         client.perform(MockMvcRequestBuilders.put("/api/v1/todos")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +70,7 @@ public class TodoTest {
                 // Then：
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedTodo.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(expectedTodo.getStatus()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.completed").value(expectedTodo.getCompleted()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(expectedTodo.getTitle()));
     }
 

@@ -1,6 +1,7 @@
 package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Todo;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface TodoRepository {
 
     void deleteById(Integer id);
 
-    List<Todo> getByPage(int page, int size);
+    Page<Todo> getByPage(int page, int size);
 }

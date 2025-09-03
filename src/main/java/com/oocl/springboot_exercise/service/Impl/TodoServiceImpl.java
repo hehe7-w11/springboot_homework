@@ -1,12 +1,10 @@
 package com.oocl.springboot_exercise.service.Impl;
 
-import com.oocl.springboot_exercise.controller.dto.TodoRequest;
-import com.oocl.springboot_exercise.controller.mapper.TodoMapper;
 import com.oocl.springboot_exercise.model.Todo;
 import com.oocl.springboot_exercise.repository.TodoDBRepository;
-import com.oocl.springboot_exercise.repository.TodoRepository;
 import com.oocl.springboot_exercise.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +49,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> getTodosByPage(int page, int size) {
+    public Page<Todo> getTodosByPage(int page, int size) {
         return todoRepository.getByPage(page, size);
     }
 }

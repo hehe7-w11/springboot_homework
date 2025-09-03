@@ -4,7 +4,9 @@ import com.oocl.springboot_exercise.controller.dto.TodoRequest;
 import com.oocl.springboot_exercise.controller.mapper.TodoMapper;
 import com.oocl.springboot_exercise.model.Todo;
 import com.oocl.springboot_exercise.service.TodoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +24,13 @@ public class TodoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo saveTodo(@RequestBody TodoRequest todo) {
+    public Todo saveTodo(@RequestBody @Valid TodoRequest todo) {
         return todoService.saveTodo(todoMapper.toEntity(todo));
     }
 
     @GetMapping
-    public List<Todo> getTodos() {
-        return todoService.getAllTodos();
+    public Page<Todo> getTodos(@RequestParam int page, @RequestParam int size) {
+        return todoService.getTodosByPage(page, size);
     }
 
     @GetMapping("/{id}")
@@ -41,14 +43,14 @@ public class TodoController {
         return todoService.updateTodo(todo);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTodo(@PathVariable Integer id) {
         todoService.deleteById(id);
     }
 
     @GetMapping("/page")
-    public List<Todo> getTodosByPage(@RequestParam int page, @RequestParam int size) {
+    public Page<Todo> getTodosByPage(@RequestParam int page, @RequestParam int size) {
         return todoService.getTodosByPage(page, size);
     }
 }

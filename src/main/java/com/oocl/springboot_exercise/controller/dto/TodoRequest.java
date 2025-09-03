@@ -1,8 +1,11 @@
 package com.oocl.springboot_exercise.controller.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class TodoRequest {
+    @NotNull(message = "Title cannot be null")
     private String title;
-    private String status;
+    private Boolean completed;
 
     public TodoRequest() {
     }
@@ -15,11 +18,11 @@ public class TodoRequest {
         this.title = title;
     }
 
-    public String getStatus() {
-        return status;
+    public Boolean getCompleted() {
+        return completed;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }

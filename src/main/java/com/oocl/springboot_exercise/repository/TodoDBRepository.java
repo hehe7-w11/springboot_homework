@@ -2,6 +2,7 @@ package com.oocl.springboot_exercise.repository;
 
 import com.oocl.springboot_exercise.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
@@ -34,8 +35,8 @@ public class TodoDBRepository implements TodoRepository {
     }
 
     @Override
-    public List<Todo> getByPage(int page, int size) {
-        return jpaTodoRepository.findAll(PageRequest.of(page - 1, size)).getContent();
+    public Page<Todo> getByPage(int page, int size) {
+        return jpaTodoRepository.findAll(PageRequest.of(page - 1, size));
     }
 
 }
