@@ -3,7 +3,6 @@ package com.oocl.springboot_exercise.service;
 import com.oocl.springboot_exercise.common.exception.InvalidEmployeeException;
 import com.oocl.springboot_exercise.model.Employee;
 import com.oocl.springboot_exercise.repository.EmployeeDBRepository;
-import com.oocl.springboot_exercise.repository.EmployeeMemoryRepository;
 import com.oocl.springboot_exercise.service.Impl.EmployeeServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
